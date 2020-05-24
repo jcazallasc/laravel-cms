@@ -21,6 +21,9 @@
                                 <a href="{{ route('categories.show', $category->id) }}" class="btn btn-primary btn-sm float-right mr-1">
                                     {{ __('View') }}
                                 </a>
+                                <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-success btn-sm float-right mr-1">
+                                    {{ __('Edit') }}
+                                </a>
                             </li>
                         @endforeach
                     </ul>

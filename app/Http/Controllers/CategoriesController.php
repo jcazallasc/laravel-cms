@@ -50,9 +50,9 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function show($id)
+    public function show(Category $category)
     {
-        return view('categories.show')->with('category', Category::find($id));
+        return view('categories.show')->with('category', $category);
     }
 
     /**
@@ -61,9 +61,9 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        return view('categories.edit')->with('category', Category::find($id));
+        return view('categories.edit')->with('category', $category);
     }
 
     /**
@@ -72,9 +72,8 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
-        $category = Category::find($id);
         $category->fill($request->all());
         $category->save();
 
@@ -88,9 +87,9 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Category $category)
     {
-        Category::find($id)->delete();
+        $category->delete();
 
         Session::flash('message', 'Successfully deleted category!');
         return Redirect::to('categories');
