@@ -20,3 +20,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('categories', 'CategoriesController')->names([
+    'index' => 'categories',
+    'show' => 'categories.show',
+    'create' => 'categories.create',
+    'store' => 'categories.store',
+    'edit' => 'categories.edit',
+    'update' => 'categories.update',
+    'destroy' => 'categories.delete',
+])->middleware('auth');
