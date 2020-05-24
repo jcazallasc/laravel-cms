@@ -11,11 +11,14 @@
                     {{ $category->name }}
                 </div>
             </div>
-            <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-info btn-sm my-2 mr-2 float-left">{{ __('Edit') }}</a>
+            <div class="form-group">
+                <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-info btn-full mt-3 btn-block">{{ __('Edit') }}</a>
+            </div>
+            
             <form action="{{ route('categories.delete', $category->id) }}" method="post">
                 @csrf
                 @method('delete')
-                <button type="submit" class="btn btn-danger btn-sm my-2 float-left">
+                <button type="submit" class="btn btn-danger btn-block">
                     {{ __('Delete') }}
                 </button>
             </form>

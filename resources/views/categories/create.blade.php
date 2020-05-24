@@ -22,8 +22,8 @@
                         <div class="form-group">
                             <input type="text" class="form-control" name="name" placeholder="Name" value="{{ old('name') }}" />
                         </div>
-                        <div class="form-group text-center">
-                            <button type="submit" class="btn btn-success">{{ __('Create category') }}</button>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success btn-block">{{ __('Create category') }}</button>
                         </div>
                     </form>
                 </div>

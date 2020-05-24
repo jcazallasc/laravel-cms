@@ -23,8 +23,8 @@
                         <div class="form-group">
                             <input type="text" class="form-control" name="name" placeholder="Name" value="{{ old('name', $category->name) }}" />
                         </div>
-                        <div class="form-group text-center">
-                            <button type="submit" class="btn btn-success">{{ __('Update category') }}</button>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success btn-block">{{ __('Update category') }}</button>
                         </div>
                     </form>
                 </div>
