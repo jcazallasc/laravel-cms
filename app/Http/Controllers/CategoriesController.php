@@ -39,7 +39,7 @@ class CategoriesController extends Controller
     public function store(StoreCategoryRequest $request)
     {
         $category = new Category();
-        $category->fill($request->all());
+        $category->fill($request->only('name'));
         $category->save();
 
         Session::flash('status', 'Category created successfully!');
@@ -65,7 +65,7 @@ class CategoriesController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        $category->fill($request->all());
+        $category->update($request->only('name'));
         $category->save();
 
         Session::flash('status', 'Category updated successfully!');
