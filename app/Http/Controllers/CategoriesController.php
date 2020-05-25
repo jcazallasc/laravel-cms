@@ -43,7 +43,7 @@ class CategoriesController extends Controller
         $category->save();
 
         Session::flash('status', 'Category created successfully!');
-        return Redirect::to('categories');
+        return Redirect::to(route('categories.index'));
     }
 
     /**
@@ -65,7 +65,7 @@ class CategoriesController extends Controller
      */
     public function edit(Category $category)
     {
-        return view('categories.edit')->with('category', $category);
+        return view('categories.create')->with('category', $category);
     }
 
     /**
@@ -80,7 +80,7 @@ class CategoriesController extends Controller
         $category->save();
 
         Session::flash('status', 'Category updated successfully!');
-        return Redirect::to('categories');
+        return Redirect::to(route('categories.index'));
     }
 
     /**
@@ -94,6 +94,6 @@ class CategoriesController extends Controller
         $category->delete();
 
         Session::flash('status', 'Category deleted successfully!');
-        return Redirect::to('categories.index');
+        return Redirect::to(route('categories.index'));
     }
 }
