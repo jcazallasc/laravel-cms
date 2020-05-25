@@ -25,6 +25,12 @@
                                     <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary btn-sm float-right mr-1">
                                         {{ __('Edit') }}
                                     </a>
+                                @else
+                                    <form action="{{ route('posts.restore', $post->id) }}" mehtod="POST">
+                                        @method('delete')
+                                        @csrf
+                                        <button type="submit" class="btn btn-primary btn-sm float-right mr-1">{{ __('Restore') }}</button>
+                                    </form>
                                 @endif
                             </td>
                         </tr>
