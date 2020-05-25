@@ -26,7 +26,7 @@
         </ul>
     </div>
 </div>
-<a href="{{ route('categories.create', $category->id) }}" class="btn btn-success float-right my-2">
+<a href="{{ route('categories.create') }}" class="btn btn-success btn-block float-right my-2">
     {{ __('Add category') }}
 </a>
 @endsection
