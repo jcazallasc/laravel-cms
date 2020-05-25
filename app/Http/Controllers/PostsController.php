@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Post;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\Posts\StorePostRequest;
+use App\Http\Requests\Posts\UpdatePostRequest;
 
 class PostsController extends Controller
 {
@@ -39,10 +38,18 @@ class PostsController extends Controller
      */
     public function store(StorePostRequest $request)
     {
+        $data = $request->only([
+            'title',
+            'description',
+            'content',
+            'published_at',
+        ]);
+
         $image = $request->image->store('posts');
-        
+        $data['image'] = $image;
+
         $post = new Post();
-        $post->fill($request->except(['_token', 'image']) + ["image" => $image]);
+        $post->fill($data);
         $post->save();
 
         Session::flash('status', 'Post created successfully!');
@@ -78,9 +85,22 @@ class PostsController extends Controller
      * @param  Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(UpdatePostRequest $request, Post $post)
     {
-        $post->fill($request->all());
+        $data = $request->only([
+            'title',
+            'description',
+            'content',
+            'published_at',
+        ]);
+
+        if($request->hasFile('image')) {
+            $image = $request->image->store('posts');
+            $post->deleteImage();
+            $data['image'] = $image;
+        }
+
+        $post->update($data);
         $post->save();
 
         Session::flash('status', 'Post updated successfully!');
@@ -99,7 +119,7 @@ class PostsController extends Controller
 
         if($post->trashed()) {
             $post->forceDelete();
-            Storage::delete($post->image);
+            $post->deleteImage();
         } else {
             $post->delete();
         }
@@ -117,4 +137,19 @@ class PostsController extends Controller
     {
         return view('posts.index')->withPosts(Post::onlyTrashed()->get());
     }
+
+    /**
+     * Restore a trashed post
+     *
+     * @param  int  $postId
+     * @return \Illuminate\Http\Response
+     */
+    public function restore($postId)
+    {
+        $post = Post::onlyTrashed()->where('id', $postId)->firstOrFail();
+        $post->restore();
+
+        Session::flash('status', 'Post restored successfully!');
+        return view('posts.index')->withPosts(Post::all());
+    }    
 }
