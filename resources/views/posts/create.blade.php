@@ -23,20 +23,41 @@
             </div>
             <div class="form-group">
                 <label for="content">{{ __('Content') }}</label>
-                <textarea name="content" class="form-control" id="content" placeholder="{{ __('Content') }}" cols="5" rows="5">{{ isset($post) ? old('content', $post->content):old('content')  }}</textarea>
+                <input type="hidden" id="content" name="content" value="{{ isset($post) ? old('content', $post->content):old('content') }}">
+                <trix-editor input="content"></trix-editor>
             </div>
             <div class="form-group">
                 <label for="published_at">{{ __('Published at') }}</label>
-                <input type="text" id="published_at" class="form-control" name="published_at" placeholder="{{ __('Published at') }}" value="{{ isset($post) ? old('published_at', $post->published_at):old('published_at')  }}" />
+                <input type="text" id="published_at" class="form-control" name="published_at" value="{{ isset($post) ? old('published_at', $post->published_at):old('published_at')  }}" />
             </div>
             <div class="form-group">
                 <label for="image">{{ __('Image') }}</label>
                 <input type="file" id="image" class="form-control" name="image" />
             </div>
+            @if(isset($post))
+                <div class="form-group text-center">
+                    <img src="{{ asset('storage/' . $post->image) }}" width="120px" alt="{{ $post->title }}">
+                </div>
+            @endif
             <div class="form-group">
                 <button type="submit" class="btn btn-success">{{ isset($post) ? __('Update post'):__('Add post') }}</button>
             </div>
         </form>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.1/trix.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+    flatpickr('#published_at', {
+       enableTime: true, 
+    });
+</script>
+@endsection
+
+@section('css')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.1/trix.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 @endsection
