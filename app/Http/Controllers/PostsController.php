@@ -150,6 +150,6 @@ class PostsController extends Controller
         $post->restore();
 
         Session::flash('status', 'Post restored successfully!');
-        return view('posts.index')->withPosts(Post::all());
+        return Redirect::to(route('posts.trash'));
     }    
 }

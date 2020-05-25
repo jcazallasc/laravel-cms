@@ -91,7 +91,7 @@
 
                             <ul class="list-group mt-5">
                                 <li class="list-group-item">
-                                    <a href="{{ route('posts.trashed') }}">{{ __('Trashed Posts') }}</a>
+                                    <a href="{{ route('posts.trash') }}">{{ __('Trashed Posts') }}</a>
                                 </li>
                             </ul>
                         </div>

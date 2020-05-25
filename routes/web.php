@@ -23,11 +23,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::middleware(['auth'])->group(function () {
     Route::resource('categories', 'CategoriesController');
-
-    Route::get('posts/trashed', 'PostsController@trashed')->name('posts.trashed');
-
+    
+    Route::get('posts/trashed', 'PostsController@trashed')->name('posts.trash');
     Route::put('posts/{post}/restore', 'PostsController@restore')->name('posts.restore');
-
     Route::resource('posts', 'PostsController');
 });
 

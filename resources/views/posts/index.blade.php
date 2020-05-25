@@ -26,8 +26,8 @@
                                         {{ __('Edit') }}
                                     </a>
                                 @else
-                                    <form action="{{ route('posts.restore', $post->id) }}" mehtod="POST">
-                                        @method('delete')
+                                    <form action="{{ route('posts.restore', $post->id) }}" method="POST">
+                                        @method('put')
                                         @csrf
                                         <button type="submit" class="btn btn-primary btn-sm float-right mr-1">{{ __('Restore') }}</button>
                                     </form>
@@ -42,7 +42,7 @@
         @endif
     </div>
 </div>
-@if(Route::currentRouteName() != 'posts.trashed')
+@if(Route::currentRouteName() != 'posts.trash')
     <a href="{{ route('posts.create') }}" class="btn btn-success btn-block float-right my-2">
         {{ __('Add post') }}
     </a>

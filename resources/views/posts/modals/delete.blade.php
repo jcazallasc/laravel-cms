@@ -15,7 +15,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('No, go back') }}</button>
-                <button type="submit" class="btn btn-danger">{{ __('Yes, delete') }}</button>
+                <button type="submit" class="btn btn-danger">{{ __('Yes, do it') }}</button>
             </div>
         </div>
     </form>
