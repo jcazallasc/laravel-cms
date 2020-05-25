@@ -42,7 +42,7 @@ class CategoriesController extends Controller
         $category->fill($request->all());
         $category->save();
 
-        Session::flash('status', 'Successfully created category!');
+        Session::flash('status', 'Category created successfully!');
         return Redirect::to('categories');
     }
 
@@ -79,7 +79,7 @@ class CategoriesController extends Controller
         $category->fill($request->all());
         $category->save();
 
-        Session::flash('status', 'Successfully updated category!');
+        Session::flash('status', 'Category updated successfully!');
         return Redirect::to('categories');
     }
 
@@ -93,7 +93,7 @@ class CategoriesController extends Controller
     {
         $category->delete();
 
-        Session::flash('status', 'Successfully deleted category!');
+        Session::flash('status', 'Category deleted successfully!');
         return Redirect::to('categories.index');
     }
 }

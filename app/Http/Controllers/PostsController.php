@@ -41,8 +41,8 @@ class PostsController extends Controller
         $post->fill($request->all());
         $post->save();
 
-        Session::flash('message', 'Successfully created post!');
-        return Redirect::to('posts.index');
+        Session::flash('message', 'Post created successfully!');
+        return Redirect::to('posts');
     }
 
     /**
@@ -79,8 +79,8 @@ class PostsController extends Controller
         $post->fill($request->all());
         $post->save();
 
-        Session::flash('message', 'Successfully updated post!');
-        return Redirect::to('posts.index');
+        Session::flash('message', 'Post updated successfully!');
+        return Redirect::to('posts');
     }
 
     /**
@@ -93,7 +93,7 @@ class PostsController extends Controller
     {
         $post->delete();
 
-        Session::flash('message', 'Successfully deleted post!');
-        return Redirect::to('posts.index');
+        Session::flash('message', 'Post deleted successfully!');
+        return Redirect::to('posts');
     }
 }
