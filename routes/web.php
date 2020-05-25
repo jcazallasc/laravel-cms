@@ -24,3 +24,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('categories', 'CategoriesController')->middleware('auth');
 
 Route::resource('posts', 'PostsController')->middleware('auth');
+
+Route::get('trashed-post', 'PostsController@trashed')->middleware('auth')->name('posts.trashed');

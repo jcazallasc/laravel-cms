@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
+use App\Http\Requests\Posts\StorePostRequest;
 
 class PostsController extends Controller
 {
@@ -35,10 +37,12 @@ class PostsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
+        $image = $request->image->store('posts');
+        
         $post = new Post();
-        $post->fill($request->all());
+        $post->fill($request->except(['_token', 'image']) + ["image" => $image]);
         $post->save();
 
         Session::flash('status', 'Post created successfully!');
@@ -64,7 +68,7 @@ class PostsController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('posts.edit')->with('post', $post);
+        return view('posts.create')->with('post', $post);
     }
 
     /**
@@ -86,14 +90,31 @@ class PostsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Post  $post
+     * @param  int  $postId
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy($postId)
     {
-        $post->delete();
+        $post = Post::withTrashed()->where('id', $postId)->firstOrFail();
+
+        if($post->trashed()) {
+            $post->forceDelete();
+            Storage::delete($post->image);
+        } else {
+            $post->delete();
+        }
 
         Session::flash('status', 'Post deleted successfully!');
         return Redirect::to(route('posts.index'));
+    }
+
+    /**
+     * Display a list of all trashed posts
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function trashed()
+    {
+        return view('posts.index')->withPosts(Post::onlyTrashed()->get());
     }
 }
