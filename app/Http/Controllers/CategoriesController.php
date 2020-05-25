@@ -47,17 +47,6 @@ class CategoriesController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show(Category $category)
-    {
-        return view('categories.show')->with('category', $category);
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
