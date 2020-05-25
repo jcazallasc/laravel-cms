@@ -28,7 +28,6 @@ class BasePostRequest extends FormRequest
             'description' => 'required|min:6|max:50',
             'content' => 'required',
             'published_at' => 'nullable',
-            'image' => 'required|image',
         ];
     }
 
