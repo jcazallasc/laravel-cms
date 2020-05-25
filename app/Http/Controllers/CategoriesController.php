@@ -6,6 +6,8 @@ use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
+use App\Http\Requests\Categories\StoreCategoryRequest;
+use App\Http\Requests\Categories\UpdateCategoryRequest;
 
 class CategoriesController extends Controller
 {
@@ -34,13 +36,13 @@ class CategoriesController extends Controller
      *
      * @return Response
      */
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
     {
         $category = new Category();
         $category->fill($request->all());
         $category->save();
 
-        Session::flash('message', 'Successfully created category!');
+        Session::flash('status', 'Successfully created category!');
         return Redirect::to('categories');
     }
 
@@ -72,12 +74,12 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, Category $category)
+    public function update(UpdateCategoryRequest $request, Category $category)
     {
         $category->fill($request->all());
         $category->save();
 
-        Session::flash('message', 'Successfully updated category!');
+        Session::flash('status', 'Successfully updated category!');
         return Redirect::to('categories');
     }
 
@@ -91,7 +93,7 @@ class CategoriesController extends Controller
     {
         $category->delete();
 
-        Session::flash('message', 'Successfully deleted category!');
-        return Redirect::to('categories');
+        Session::flash('status', 'Successfully deleted category!');
+        return Redirect::to('categories.index');
     }
 }

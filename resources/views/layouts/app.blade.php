@@ -33,12 +33,6 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('categories') }}">{{ __('Categories') }}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('categories.create') }}">{{ __('Add Category') }}</a>
-                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -78,7 +72,27 @@
         </nav>
 
         <main class="py-4">
-            @yield('content')
+            @auth
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <a href="{{ route('posts.index') }}">Posts</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="{{ route('categories.index') }}">Categories</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-8">
+                            @yield('content')
+                        </div>
+                    </div>
+                </div>
+            @else
+                @yield('content')
+            @endauth
         </main>
     </div>
 </body>
