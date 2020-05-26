@@ -11,6 +11,14 @@ use App\Http\Requests\Posts\UpdatePostRequest;
 
 class PostsController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('verifyCategoriesCount')->only([
+            'create',
+            'store',
+        ]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -53,7 +61,7 @@ class PostsController extends Controller
         $post->fill($data);
         $post->save();
 
-        Session::flash('status', 'Post created successfully!');
+        Session::flash('success', 'Post created successfully!');
         return Redirect::to(route('posts.index'));
     }
 
@@ -105,7 +113,7 @@ class PostsController extends Controller
         $post->update($data);
         $post->save();
 
-        Session::flash('status', 'Post updated successfully!');
+        Session::flash('success', 'Post updated successfully!');
         return Redirect::to(route('posts.index'));
     }
 
@@ -126,7 +134,7 @@ class PostsController extends Controller
             $post->delete();
         }
 
-        Session::flash('status', 'Post deleted successfully!');
+        Session::flash('success', 'Post deleted successfully!');
         return Redirect::to(route('posts.index'));
     }
 
@@ -151,7 +159,7 @@ class PostsController extends Controller
         $post = Post::onlyTrashed()->where('id', $postId)->firstOrFail();
         $post->restore();
 
-        Session::flash('status', 'Post restored successfully!');
+        Session::flash('success', 'Post restored successfully!');
         return Redirect::to(route('posts.trash'));
     }    
 }

@@ -42,7 +42,7 @@ class CategoriesController extends Controller
         $category->fill($request->only('name'));
         $category->save();
 
-        Session::flash('status', 'Category created successfully!');
+        Session::flash('success', 'Category created successfully!');
         return Redirect::to(route('categories.index'));
     }
 
@@ -68,7 +68,7 @@ class CategoriesController extends Controller
         $category->update($request->only('name'));
         $category->save();
 
-        Session::flash('status', 'Category updated successfully!');
+        Session::flash('success', 'Category updated successfully!');
         return Redirect::to(route('categories.index'));
     }
 
@@ -82,7 +82,7 @@ class CategoriesController extends Controller
     {
         $category->delete();
 
-        Session::flash('status', 'Category deleted successfully!');
+        Session::flash('success', 'Category deleted successfully!');
         return Redirect::to(route('categories.index'));
     }
 }

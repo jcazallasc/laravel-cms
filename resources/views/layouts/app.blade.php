@@ -73,11 +73,9 @@
         <main class="py-4">
             @auth
                 <div class="container">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+                    @include('shared.success')
+                    @include('shared.warning')
+                    @include('shared.error')
                     <div class="row">
                         <div class="col-md-4">
                             <ul class="list-group">
