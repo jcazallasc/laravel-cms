@@ -75,7 +75,7 @@
                 <div class="container">
                     @include('shared.success')
                     @include('shared.warning')
-                    @include('shared.error')
+                    @include('shared.errors')
                     <div class="row">
                         <div class="col-md-4">
                             <ul class="list-group">
