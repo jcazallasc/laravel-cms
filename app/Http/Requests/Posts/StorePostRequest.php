@@ -24,6 +24,7 @@ class StorePostRequest extends BasePostRequest
     public function rules()
     {
         return parent::rules() + [
+            'title' => 'required|unique:posts|min:6|max:50',
             'image' => 'required|image',
         ];
     }

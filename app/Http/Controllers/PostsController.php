@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Category;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\Posts\StorePostRequest;
@@ -27,7 +28,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        return view('posts.create')->with('categories', Category::all());
     }
 
     /**
@@ -42,12 +43,12 @@ class PostsController extends Controller
             'title',
             'description',
             'content',
+            'category_id',
             'published_at',
         ]);
 
         $image = $request->image->store('posts');
         $data['image'] = $image;
-
         $post = new Post();
         $post->fill($data);
         $post->save();
@@ -75,7 +76,7 @@ class PostsController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('posts.create')->with('post', $post);
+        return view('posts.create')->with('post', $post)->with('categories', Category::all());
     }
 
     /**
@@ -91,6 +92,7 @@ class PostsController extends Controller
             'title',
             'description',
             'content',
+            'category_id',
             'published_at',
         ]);
 

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Category;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -16,7 +17,7 @@ class Post extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'description', 'content', 'published_at', 'image'];
+    protected $fillable = ['title', 'description', 'content', 'category_id', 'published_at', 'image'];
 
     /**
      * The attributes that aren't mass assignable.
@@ -29,4 +30,10 @@ class Post extends Model
     {
         Storage::delete($this->image);
     }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
 }

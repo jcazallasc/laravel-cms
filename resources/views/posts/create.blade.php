@@ -40,6 +40,14 @@
                 </div>
             @endif
             <div class="form-group">
+                <label for="category_id">{{ __('Category') }}</label>
+                <select name="category_id" id="category_id" class="form-control">
+                    @foreach($categories as $category)
+                        <option {{ isset($post) && $post->category_id == $category->id ? 'selected':'' }} value="{{ $category->id }}">{{ $category->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
                 <button type="submit" class="btn btn-success">{{ isset($post) ? __('Update post'):__('Add post') }}</button>
             </div>
         </form>

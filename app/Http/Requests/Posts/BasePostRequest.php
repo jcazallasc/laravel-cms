@@ -24,10 +24,10 @@ class BasePostRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|unique:posts|min:6|max:50',
             'description' => 'required|min:6|max:50',
             'content' => 'required',
-            'published_at' => 'nullable',
+            'category_id' => 'required|exists:categories,id',
+            'published_at' => 'nullable|date|after:' . date('Y-m-d H:i'),
         ];
     }
 
