@@ -79,6 +79,11 @@ class CategoriesController extends Controller
      */
     public function destroy(Category $category)
     {
+        if($category->posts->count() > 0) {
+            Session::flash('danger', 'Category cannot be deleted because it has some posts');
+            return redirect()->back();
+        }
+
         $category->delete();
 
         Session::flash('success', 'Category deleted successfully!');

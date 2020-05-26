@@ -79,6 +79,11 @@ class TagsController extends Controller
      */
     public function destroy(Tag $tag)
     {
+        if ($tag->posts->count() > 0) {
+            Session::flash('danger', 'Tag cannot be deleted because it has some posts');
+            return redirect()->back();
+        }
+
         $tag->delete();
 
         Session::flash('success', 'Tag deleted successfully!');
