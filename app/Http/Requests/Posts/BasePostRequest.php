@@ -27,6 +27,7 @@ class BasePostRequest extends FormRequest
             'description' => 'required|min:6|max:50',
             'content' => 'required',
             'category_id' => 'required|exists:categories,id',
+            'tags.*' => 'exists:tags,id',
             'published_at' => 'nullable|date|after:' . date('Y-m-d H:i'),
         ];
     }
