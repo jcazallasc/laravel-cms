@@ -10,6 +10,7 @@
                 @foreach($tags as $tag)
                     <li class="list-group-item">
                         {{ $tag->name }}
+                        <span class="badge badge-secondary ml-2">{{ $tag->posts->count() }}</span>
                         <button type="button" class="btn btn-danger btn-sm float-right mr-1" data-toggle="modal" data-target="#deleteModal" onclick="handleDelete('{{ route('tags.destroy', $tag->id) }}', '{{ __('Delete tag') }}')">
                             {{ __('Delete') }}
                         </button>

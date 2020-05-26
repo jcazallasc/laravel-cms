@@ -46,6 +46,16 @@
                     @endforeach
                 </select>
             </div>
+            @if ($tags->count() > 0)
+                <div class="form-group">
+                    <label for="tags">{{ __('Tags') }}</label>
+                    <select name="tags[]" id="tags" class="form-control" multiple>
+                        @foreach($tags as $tag)
+                            <option {{ isset($post) && $post->hasTag($tag->id) ? 'selected':'' }} value="{{ $tag->id }}">{{ $tag->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            @endif
             <div class="form-group">
                 <button type="submit" class="btn btn-success">{{ isset($post) ? __('Update post'):__('Add post') }}</button>
             </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Tag;
 use App\Post;
 use App\Category;
 use Illuminate\Support\Facades\Session;
@@ -36,7 +37,9 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('posts.create')->with('categories', Category::all());
+        return view('posts.create')
+            ->with('categories', Category::all())
+            ->with('tags', Tag::all());
     }
 
     /**
@@ -57,9 +60,11 @@ class PostsController extends Controller
 
         $image = $request->image->store('posts');
         $data['image'] = $image;
-        $post = new Post();
-        $post->fill($data);
-        $post->save();
+        $post = Post::create($data);
+
+        if($request->has('tags')) {
+            $post->tags()->attach($request->tags);
+        }
 
         Session::flash('success', 'Post created successfully!');
         return Redirect::to(route('posts.index'));
@@ -84,7 +89,10 @@ class PostsController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('posts.create')->with('post', $post)->with('categories', Category::all());
+        return view('posts.create')
+            ->with('post', $post)
+            ->with('categories', Category::all())
+            ->with('tags', Tag::all());
     }
 
     /**
@@ -112,6 +120,10 @@ class PostsController extends Controller
 
         $post->update($data);
         $post->save();
+
+        if ($request->has('tags')) {
+            $post->tags()->sync($request->tags);
+        }
 
         Session::flash('success', 'Post updated successfully!');
         return Redirect::to(route('posts.index'));

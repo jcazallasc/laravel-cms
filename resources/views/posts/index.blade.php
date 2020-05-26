@@ -11,6 +11,7 @@
                     <th>{{ __('Image') }}</th>
                     <th>{{ __('Title') }}</th>
                     <th>{{ __('Category') }}</th>
+                    <th>{{ __('Tags') }}</th>
                     <th></th>
                 </thead>
                 <tbody>
@@ -19,6 +20,11 @@
                             <td><img src="{{ asset('storage/' . $post->image) }}" width="120px" alt="{{ $post->title }}"></td>
                             <td>{{ $post->title }}</td>
                             <td>{{ $post->category->name }}</td>
+                            <td>
+                                @foreach($post->tags as $tag)
+                                    <span class="badge badge-secondary ml-2">{{ $tag->name }}</span>
+                                @endforeach
+                            </td>
                             <td>
                                 <button type="button" class="btn btn-danger btn-sm float-right mr-1" data-toggle="modal" data-target="#deleteModal" onclick="handleDelete('{{ route('posts.destroy', $post->id) }}', '{{ __('Delete post') }}')">
                                     {{ $post->trashed() ? __('Delete'):__('Trash') }}
