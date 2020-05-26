@@ -10,6 +10,7 @@
                 @foreach($categories as $category)
                     <li class="list-group-item">
                         {{ $category->name }}
+                        <span class="badge badge-secondary ml-2">{{ $category->posts->count() }}</span>
                         <button type="button" class="btn btn-danger btn-sm float-right mr-1" data-toggle="modal" data-target="#deleteModal" onclick="handleDelete('{{ route('categories.destroy', $category->id) }}')">
                             {{ __('Delete') }}
                         </button>
