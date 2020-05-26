@@ -20,7 +20,7 @@
                             <td>{{ $post->title }}</td>
                             <td>{{ $post->category->name }}</td>
                             <td>
-                                <button type="button" class="btn btn-danger btn-sm float-right mr-1" data-toggle="modal" data-target="#deleteModal" onclick="handleDelete('{{ route('posts.destroy', $post->id) }}')">
+                                <button type="button" class="btn btn-danger btn-sm float-right mr-1" data-toggle="modal" data-target="#deleteModal" onclick="handleDelete('{{ route('posts.destroy', $post->id) }}', '{{ __('Delete post') }}')">
                                     {{ $post->trashed() ? __('Delete'):__('Trash') }}
                                 </button>
                                 @if(!$post->trashed())
@@ -50,14 +50,6 @@
     </a>
 @endif
 
-@include('posts.modals.delete')
-@endsection
-
-@section('scripts')
-<script>
-    function handleDelete(action) {
-        $('#deleteModal form').attr('action', action);
-    }
-</script>
+@include('shared.modals.delete')
 @endsection
 

@@ -10,7 +10,7 @@
                 @foreach($tags as $tag)
                     <li class="list-group-item">
                         {{ $tag->name }}
-                        <button type="button" class="btn btn-danger btn-sm float-right mr-1" data-toggle="modal" data-target="#deleteModal" onclick="handleDelete('{{ route('tags.destroy', $tag->id) }}')">
+                        <button type="button" class="btn btn-danger btn-sm float-right mr-1" data-toggle="modal" data-target="#deleteModal" onclick="handleDelete('{{ route('tags.destroy', $tag->id) }}', '{{ __('Delete tag') }}')">
                             {{ __('Delete') }}
                         </button>
                         <a href="{{ route('tags.edit', $tag->id) }}" class="btn btn-primary btn-sm float-right mr-1">
@@ -28,14 +28,6 @@
     {{ __('Add tag') }}
 </a>
 
-@include('tags.modals.delete')
-@endsection
-
-@section('scripts')
-<script>
-    function handleDelete(action) {
-        $('#deleteModal form').attr('action', action);
-    }
-</script>
+@include('shared.modals.delete')
 @endsection
 

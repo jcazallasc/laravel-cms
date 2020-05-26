@@ -21,3 +21,12 @@
     </form>
   </div>
 </div>
+
+@section('scripts')
+<script>
+    function handleDelete(action, title) {
+        $('#deleteModal form').attr('action', action);
+        $('#deleteModal form h5').text(title);
+    }
+</script>
+@endsection

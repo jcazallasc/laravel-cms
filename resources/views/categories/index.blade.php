@@ -11,7 +11,7 @@
                     <li class="list-group-item">
                         {{ $category->name }}
                         <span class="badge badge-secondary ml-2">{{ $category->posts->count() }}</span>
-                        <button type="button" class="btn btn-danger btn-sm float-right mr-1" data-toggle="modal" data-target="#deleteModal" onclick="handleDelete('{{ route('categories.destroy', $category->id) }}')">
+                        <button type="button" class="btn btn-danger btn-sm float-right mr-1" data-toggle="modal" data-target="#deleteModal" onclick="handleDelete('{{ route('categories.destroy', $category->id) }}', '{{ __('Delete category') }}')">
                             {{ __('Delete') }}
                         </button>
                         <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-primary btn-sm float-right mr-1">
@@ -29,14 +29,6 @@
     {{ __('Add category') }}
 </a>
 
-@include('categories.modals.delete')
-@endsection
-
-@section('scripts')
-<script>
-    function handleDelete(action) {
-        $('#deleteModal form').attr('action', action);
-    }
-</script>
+@include('shared.modals.delete')
 @endsection
 
