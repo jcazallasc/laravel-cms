@@ -7,7 +7,6 @@
     </div>
 
     <div class="card-body">
-        @include('shared.errors')
         <form enctype="multipart/form-data" action="{{ isset($post) ? route('posts.update', $post->id):route('posts.store') }}" method="POST">
             @csrf
             @if (isset($post))

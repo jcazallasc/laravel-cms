@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\Categories\StoreCategoryRequest;

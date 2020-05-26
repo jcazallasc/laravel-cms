@@ -75,6 +75,7 @@
                 <div class="container">
                     @include('shared.success')
                     @include('shared.warning')
+                    @include('shared.danger')
                     @include('shared.errors')
                     <div class="row">
                         <div class="col-md-4">
@@ -84,6 +85,9 @@
                                 </li>
                                 <li class="list-group-item">
                                     <a href="{{ route('categories.index') }}">{{ __('Categories') }}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="{{ route('tags.index') }}">{{ __('Tags') }}</a>
                                 </li>
                             </ul>
 
