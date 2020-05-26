@@ -10,6 +10,7 @@
                 <thead>
                     <th>{{ __('Image') }}</th>
                     <th>{{ __('Title') }}</th>
+                    <th>{{ __('Category') }}</th>
                     <th></th>
                 </thead>
                 <tbody>
@@ -17,6 +18,7 @@
                         <tr>
                             <td><img src="{{ asset('storage/' . $post->image) }}" width="120px" alt="{{ $post->title }}"></td>
                             <td>{{ $post->title }}</td>
+                            <td>{{ $post->category->name }}</td>
                             <td>
                                 <button type="button" class="btn btn-danger btn-sm float-right mr-1" data-toggle="modal" data-target="#deleteModal" onclick="handleDelete('{{ route('posts.destroy', $post->id) }}')">
                                     {{ $post->trashed() ? __('Delete'):__('Trash') }}
