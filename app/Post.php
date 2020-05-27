@@ -28,6 +28,8 @@ class Post extends Model
      */
     protected $guarded = [];
 
+    protected $dates = ['published_at'];
+
     public function deleteImage()
     {
         Storage::delete($this->image);
@@ -57,5 +59,21 @@ class Post extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function scopeSearched($query)
+    {
+        $search = request()->query('search');
+
+        if(!$search) {
+            return $query->published();
+        }
+
+        return $query->published()->where('title', 'LIKE', "%{$search}%");
+    }
+
+    public function scopePublished($query)
+    {
+        return $query->where('published_at', '<=', now());
+    }    
 
 }
