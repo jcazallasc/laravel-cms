@@ -30,55 +30,25 @@
         <div class="row">
             <div class="col-md-8 col-xl-9">
                 <div class="row gap-y">
-                    @foreach ($posts as $post)
+                    @forelse ($posts as $post)
                         <div class="col-md-6">
                             <div class="card border hover-shadow-6 mb-6 d-block">
-                                <a href="{{ route('blog.show', $post->id) }}"><img class="card-img-top" src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}"></a>
+                                <a href="{{ route('blog.post', $post->id) }}"><img class="card-img-top" src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}"></a>
                                 <div class="p-6 text-center">
-                                    <p><a class="small-5 text-lighter text-uppercase ls-2 fw-400" href="{{ route('blog.index', ['category' => $post->category->id]) }}">{{ $post->category->name }}</a></p>
-                                    <h5 class="mb-0"><a class="text-dark" href="{{ route('blog.show', $post->id) }}">{{ $post->title }}</a></h5>
+                                    <p><a class="small-5 text-lighter text-uppercase ls-2 fw-400" href="{{ route('blog.category', $post->category->id) }}">{{ $post->category->name }}</a></p>
+                                    <h5 class="mb-0"><a class="text-dark" href="{{ route('blog.post', $post->id) }}">{{ $post->title }}</a></h5>
                                 </div>
                             </div>
-                        </div> 
-                    @endforeach
+                        </div>
+                    @empty
+                        <h4>{!! __('No results found for query: ') . '<strong>' . request()->query('search') . '</strong>' !!}</h4>
+                    @endforelse
                 </div>
-                {{ $posts->links() }}
+                {{ $posts->appends([
+                    'search' => request()->query('search'),
+                    ])->links() }}
             </div>
-            <div class="col-md-4 col-xl-3">
-                <div class="sidebar px-4 py-md-0">
-
-                <h6 class="sidebar-title">{{ __('Search') }}</h6>
-                <form class="input-group" action="{{ route('blog.index')}}" method="GET">
-                    <input type="text" class="form-control" name="search" placeholder="Search">
-                    <div class="input-group-addon">
-                    <span class="input-group-text"><i class="ti-search"></i></span>
-                    </div>
-                </form>
-
-                <hr>
-
-                <h6 class="sidebar-title">{{ __('Categories') }}</h6>
-                <div class="row link-color-default fs-14 lh-24">
-                    @foreach ($categories as $category)
-                        <div class="col-6">
-                            <a href="{{ route('blog.index', ['category' => $category->id]) }}">{{ $category->name }}</a>
-                        </div>      
-                    @endforeach
-                </div>
-
-                <hr>
-
-                <h6 class="sidebar-title">{{ __('Tags') }}</h6>
-                <div class="gap-multiline-items-1">
-                    @foreach ($tags as $tag)
-                        <a class="badge badge-secondary" href="{{ route('blog.index', ['tag' => $tag->id]) }}">{{ $tag->name }}</a>      
-                    @endforeach
-                </div>
-
-                <hr>
-
-                </div>
-            </div>
+            @include('shared.blog.sidebar')
         </div>
     </div>
     </div>
