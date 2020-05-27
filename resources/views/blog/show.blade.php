@@ -14,7 +14,7 @@
 
         <p class="opacity-70 text-uppercase small ls-1">{{ $post->category->name }}</p>
         <h1 class="display-4 mt-7 mb-8">{{ $post->title }}</h1>
-        <p><span class="opacity-70 mr-1">{{ __('By') }}</span> <a class="text-white" href="#">{{ $post->user->name }}</a></p>
+        <p><span class="opacity-70 mr-1">{{ __('By') }}</span> <a class="text-white" href="{{ route('blog.index', ['author' => $post->user->id]) }}">{{ $post->user->name }}</a></p>
         <p><img class="avatar avatar-sm" src="{{ Gravatar::src($post->user->email) }}" alt="{{ $post->user->name }}"></p>
 
         </div>

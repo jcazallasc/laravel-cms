@@ -18,7 +18,7 @@ class BlogController extends Controller
         }
 
         if($request->category) {
-            $posts_query = $posts_query->where('category_id', '=', $request->category);
+            $posts_query = $posts_query->where('category_id', $request->category);
         }
 
         if($request->tag) {
@@ -27,9 +27,19 @@ class BlogController extends Controller
             });
         }
 
+        if ($request->author) {
+            $posts_query = $posts_query->where('user_id', $request->author);
+        }
+
         return view('blog.index')
             ->with('categories', Category::all())
             ->with('tags', Tag::all())
             ->with('posts', $posts_query->simplePaginate(env("POST_PER_PAGE")));
+    }
+
+    public function show(Post $post)
+    {
+        return view('blog.show')->with('post', $post);
+
     }
 }

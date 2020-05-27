@@ -16,7 +16,7 @@ use App\Http\Controllers\Blog\PostsController;
 */
 
 Route::get('/', 'BlogController@index')->name('blog.index');
-Route::get('/blog/posts/{post}', [PostsController::class, 'show'])->name('blog.show');
+Route::get('/blog/posts/{post}', 'BlogController@show')->name('blog.show');
 
 Auth::routes();
 
