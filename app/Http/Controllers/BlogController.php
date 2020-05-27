@@ -5,41 +5,45 @@ namespace App\Http\Controllers;
 use App\Tag;
 use App\Post;
 use App\Category;
-use Illuminate\Http\Request;
+use App\User;
 
 class BlogController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        $posts_query = Post::query();
-        
-        if($request->search) {
-            $posts_query = $posts_query->where('title', 'LIKE', "%{$request->search}%");
-        }
-
-        if($request->category) {
-            $posts_query = $posts_query->where('category_id', $request->category);
-        }
-
-        if($request->tag) {
-            $posts_query = $posts_query->whereHas('tags', function($query) use ($request) {
-                $query->where('tags.id', '=', $request->tag);
-            });
-        }
-
-        if ($request->author) {
-            $posts_query = $posts_query->where('user_id', $request->author);
-        }
-
         return view('blog.index')
             ->with('categories', Category::all())
             ->with('tags', Tag::all())
-            ->with('posts', $posts_query->simplePaginate(env("POST_PER_PAGE")));
-    }
+            ->with('posts', Post::searched()->simplePaginate(env("POST_PER_PAGE")));
+    }    
 
-    public function show(Post $post)
+    public function post(Post $post)
     {
-        return view('blog.show')->with('post', $post);
+        return view('blog.post')->with('post', $post);
 
     }
+
+    public function category(Category $category)
+    {
+        return view('blog.index')
+            ->with('categories', Category::all())
+            ->with('tags', Tag::all())
+            ->with('posts', $category->posts()->searched()->simplePaginate(env("POST_PER_PAGE")));
+    }
+
+    public function tag(Tag $tag)
+    {
+        return view('blog.index')
+            ->with('categories', Category::all())
+            ->with('tags', Tag::all())
+            ->with('posts', $tag->posts()->searched()->simplePaginate(env("POST_PER_PAGE")));
+    }
+
+    public function author(User $user)
+    {
+        return view('blog.index')
+            ->with('categories', Category::all())
+            ->with('tags', Tag::all())
+            ->with('posts', $user->posts()->searched()->simplePaginate(env("POST_PER_PAGE")));
+    }        
 }
