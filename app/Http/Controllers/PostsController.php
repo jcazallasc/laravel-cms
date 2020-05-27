@@ -60,6 +60,7 @@ class PostsController extends Controller
 
         $image = $request->image->store('posts');
         $data['image'] = $image;
+        $data['user_id'] = auth()->user()->id;
         $post = Post::create($data);
 
         if($request->has('tags')) {

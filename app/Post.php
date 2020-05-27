@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Tag;
+use App\User;
 use App\Category;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -18,7 +19,7 @@ class Post extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'description', 'content', 'category_id', 'published_at', 'image'];
+    protected $fillable = ['title', 'description', 'content', 'category_id', 'published_at', 'image', 'user_id'];
 
     /**
      * The attributes that aren't mass assignable.
@@ -50,6 +51,11 @@ class Post extends Model
     public function hasTag($tagId)
     {
         return in_array($tagId, $this->tags->pluck('id')->toArray());
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
 }
