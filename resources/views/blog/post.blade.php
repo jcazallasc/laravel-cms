@@ -14,7 +14,7 @@
 
         <p class="opacity-70 text-uppercase small ls-1">{{ $post->category->name }}</p>
         <h1 class="display-4 mt-7 mb-8">{{ $post->title }}</h1>
-        <p><span class="opacity-70 mr-1">{{ __('By') }}</span> <a class="text-white" href="{{ route('blog.index', ['author' => $post->user->id]) }}">{{ $post->user->name }}</a></p>
+        <p><span class="opacity-70 mr-1">{{ __('By') }}</span> <a class="text-white" href="{{ route('blog.author', $post->user->id) }}">{{ $post->user->name }}</a></p>
         <p><img class="avatar avatar-sm" src="{{ Gravatar::src($post->user->email) }}" alt="{{ $post->user->name }}"></p>
 
         </div>
@@ -46,11 +46,19 @@
                     {!! $post->content !!}
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-lg-8 mx-auto mt-5">
+                    <!-- Go to www.addthis.com/dashboard to customize your tools -->
+                    <div class="addthis_inline_share_toolbox"></div>
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-lg-8 mx-auto">
                     <div class="gap-xy-2 mt-6">
                         @foreach ($post->tags as $tag)
-                            <a class="badge badge-pill badge-secondary" href="{{ route('blog.index', ['tag' => $tag->id]) }}">{{ $tag->name }}</a>    
+                            <a class="badge badge-pill badge-secondary" href="{{ route('blog.tag', $tag->id) }}">{{ $tag->name }}</a>    
                         @endforeach
                     </div>
                 </div>
@@ -67,38 +75,36 @@
     !-->
     <div class="section bg-gray">
         <div class="container">
-
             <div class="row">
-            <div class="col-lg-8 mx-auto">
-                <div id="disqus_thread"></div>
-                <script>
-
-                /**
-                *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-                *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
-                
-                var disqus_config = function () {
-                    this.page.url = "{{ config('app.url') }}/blog/posts/{{ $post->id }}";  // Replace PAGE_URL with your page's canonical URL variable
-                    this.page.identifier = "{{ $post->id }}"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-                };
-                
-                (function() { // DON'T EDIT BELOW THIS LINE
-                var d = document, s = d.createElement('script');
-                s.src = 'https://saas-blog-2rpkq6jmnj.disqus.com/embed.js';
-                s.setAttribute('data-timestamp', +new Date());
-                (d.head || d.body).appendChild(s);
-                })();
-                </script>
-                <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-                                            
-
+                <div class="col-lg-8 mx-auto">
+                    <div id="disqus_thread"></div>
+                </div>
             </div>
-            </div>
-
         </div>
     </div>
-
-
-
 </main>
+@endsection
+
+@section('scripts')
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+    var disqus_config = function () {
+        this.page.url = "{{ request()->fullUrl() }}";  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = "{{ $post->id }}"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://saas-blog-2rpkq6jmnj.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5ece7073131d215b"></script>
 @endsection
