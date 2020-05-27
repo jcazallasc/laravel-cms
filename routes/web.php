@@ -16,7 +16,10 @@ use App\Http\Controllers\Blog\PostsController;
 */
 
 Route::get('/', 'BlogController@index')->name('blog.index');
-Route::get('/blog/posts/{post}', 'BlogController@show')->name('blog.show');
+Route::get('/blog/posts/{post}', 'BlogController@post')->name('blog.post');
+Route::get('/blog/categories/{category}', 'BlogController@category')->name('blog.category');
+Route::get('/blog/tags/{tag}', 'BlogController@tag')->name('blog.tag');
+Route::get('/blog/authors/{user}', 'BlogController@author')->name('blog.author');
 
 Auth::routes();
 
