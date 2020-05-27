@@ -24,6 +24,7 @@ class PostsTableSeeder extends Seeder
                 $tags->random(rand(1, 5))->pluck('id')->toArray()
             );
             $post->category_id = rand(1, 5);
+            $post->image = 'posts/' . $post->id . '.jpg';
             $post->save();
         });
     }
